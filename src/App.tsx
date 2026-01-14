@@ -1,49 +1,36 @@
-import { useEffect, useState } from "react";
-import type { Schema } from "../amplify/data/resource";
-import { generateClient } from "aws-amplify/data";
-import { Authenticator } from '@aws-amplify/ui-react';
-import { Amplify } from 'aws-amplify';
-import outputs from '../amplify_outputs.json';
-import '@aws-amplify/ui-react/styles.css';
-
-const client = generateClient<Schema>();
-
-Amplify.configure(outputs);
+import {
+  Container,
+  Box,
+  CssBaseline,
+  ThemeProvider,
+} from '@mui/material';
+import Welcome from "./pages/Welcome";
+import Header from "./components/Header";
+import { appTheme } from './theme';
+import { LanguageProvider } from "./language";
 
 function App() {
-  const [todos, setTodos] = useState<Array<Schema["Todo"]["type"]>>([]);
-
-  useEffect(() => {
-    client.models.Todo.observeQuery().subscribe({
-      next: (data) => setTodos([...data.items]),
-    });
-  }, []);
-
-  function createTodo() {
-    client.models.Todo.create({ content: window.prompt("Todo content") });
-  }
-
   return (    
-    <Authenticator>
-      {() => (
-        <main>
-          <h1>My todos</h1>
-          <button onClick={createTodo}>+ new</button>
-          <ul>
-            {todos.map((todo) => (
-              <li key={todo.id}>{todo.content}</li>
-            ))}
-          </ul>
-          <div>
-            🥳 App successfully hosted. Try creating a new todo.
-            <br />
-            <a href="https://docs.amplify.aws/react/start/quickstart/#make-frontend-updates">
-              Review next step of this tutorial.
-            </a>
-          </div>
-        </main>
-      )}
-    </Authenticator>
+    <LanguageProvider>
+      <ThemeProvider theme={appTheme}>
+        <CssBaseline />
+        <Container
+          maxWidth={false}
+          disableGutters
+          sx={{
+            minHeight: "100vh",
+            display: "flex",
+            justifyContent: "center",
+            bgcolor: "background.default",
+          }}
+        >
+          <Box width="100%">
+            <Header title="JuriAI" />
+            <Welcome />
+          </Box>
+        </Container>
+      </ThemeProvider>
+    </LanguageProvider>
   );
 }
 
