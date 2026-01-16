@@ -1,6 +1,8 @@
-import { AppBar, Toolbar, Typography, Button, Box, Select, MenuItem } from "@mui/material";
+import { AppBar, Toolbar, Typography, Button, Box } from "@mui/material";
 import { useAuthenticator } from "@aws-amplify/ui-react";
-import { useLanguage, useTranslation } from "../language";
+import { useTranslation } from "../language";
+import { usePage } from "../pages/handler/hooks";
+import { Pages } from "../pages/handler/types";
 import juriLogo from "../assets/juri.png";
 
 type HeaderProps = {
@@ -9,8 +11,8 @@ type HeaderProps = {
 
 function Header({ title }: HeaderProps) {
   const { signOut } = useAuthenticator();
-  const { language, setLanguage } = useLanguage();
   const { t } = useTranslation();
+  const { setCurrentPage } = usePage();
 
   return (
     <AppBar
@@ -39,7 +41,16 @@ function Header({ title }: HeaderProps) {
           justifyContent: "space-between",
         }}
       >
-        <Box sx={{ display: "flex", alignItems: "center", gap: 1.5 }}>
+        <Box 
+          sx={{ 
+            display: "flex", 
+            alignItems: "center", 
+            gap: 1.5,
+            cursor: "pointer",
+            userSelect: "none"
+          }}
+          onClick={() => setCurrentPage(Pages.Welcome)}
+        >
           <Box
             component="img"
             src={juriLogo}
@@ -51,14 +62,6 @@ function Header({ title }: HeaderProps) {
           </Typography>
         </Box>
         <Box sx={{ display: "flex", alignItems: "center", gap: 1.5 }}>
-          <Select
-            size="small"
-            value={language}
-            onChange={(event) => setLanguage(event.target.value as "en-us" | "pt-br")}
-          >
-            <MenuItem value="pt-br">pt-br</MenuItem>
-            <MenuItem value="en-us">en-us</MenuItem>
-          </Select>
           {typeof signOut === "function" && (
             <Button
               onClick={signOut}
