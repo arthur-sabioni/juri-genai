@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useTranslation } from "../../language";
 import { usePage } from "../handler/hooks";
 import { Pages } from "../handler/types";
+import { jurimetryService } from "../../services/api/jurimetry";
 
 function Jurimetry() {
   const { t } = useTranslation();
@@ -11,8 +12,14 @@ function Jurimetry() {
   const [theme, setTheme] = useState("");
   const [terms, setTerms] = useState("");
 
-  const handleSearch = () => {
+  const handleSearch = async () => {
     console.log("Searching...", { theme, terms });
+    try {
+      const response = await jurimetryService.startJob("https://example.com");
+      console.log("API Response:", response);
+    } catch (error) {
+      console.error("Search failed:", error);
+    }
   };
 
   return (
