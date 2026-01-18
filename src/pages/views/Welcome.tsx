@@ -5,7 +5,7 @@ import {
 } from "@mui/material";
 import { useAuthenticator } from "@aws-amplify/ui-react";
 import { useTranslation } from "../../language";
-import { usePage } from "../handler/hooks";
+import { usePage } from "../../contexts/pages/hooks";
 import { Pages } from "../handler/types";
 
 function Welcome() {
@@ -47,4 +47,3 @@ function Welcome() {
 }
 
 export default Welcome;
-

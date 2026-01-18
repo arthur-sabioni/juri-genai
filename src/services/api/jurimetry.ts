@@ -1,26 +1,35 @@
-import { jurimetryApi } from './client';
-import { fetchAuthSession } from "aws-amplify/auth";
+import { jurimetryApi } from "./client";
 
-export type StartJobResponse = {
-  jobId?: string;
+export type StartPreProcessResponse = {
+  preProcessId?: string;
   status?: string;
   [key: string]: unknown;
 };
 
-export const jurimetryService = {
-  startJob: async (url: string) => {
-    const session = await fetchAuthSession();
-    const token = session.tokens?.idToken?.toString();
+type StartPreProcessPayload = {
+  searchTerm: string;
+  maxDocuments?: number;
+};
 
-    if (!token) {
-      throw new Error("Missing idToken");
+export type PreProcessStatusResponse = {
+  status?: string;
+  documentCount?: number;
+  [key: string]: unknown;
+};
+
+export const jurimetryService = {
+  startPreProcess: async (searchTerm: string, maxDocuments?: number) => {
+    const payload: StartPreProcessPayload = { searchTerm };
+
+    if (typeof maxDocuments === "number" && Number.isFinite(maxDocuments)) {
+      payload.maxDocuments = maxDocuments;
     }
 
-    return jurimetryApi.post<StartJobResponse>('/start-job', { url }, {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    return jurimetryApi.post<StartPreProcessResponse>("pre-process", payload);
+  },
+  getPreProcessStatus: async (preProcessId: string) => {
+    return jurimetryApi.get<PreProcessStatusResponse>(
+      `pre-process/status/${encodeURIComponent(preProcessId)}`
+    );
   },
 };

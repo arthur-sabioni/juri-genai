@@ -1,26 +1,24 @@
-import { Box, Button, Stack, TextField, Typography, IconButton } from "@mui/material";
+import { Box, Button, Stack, TextField, Typography, IconButton, Switch, FormControlLabel, CircularProgress, Tooltip } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import WarningAmberIcon from "@mui/icons-material/WarningAmber";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import { useState } from "react";
 import { useTranslation } from "../../language";
-import { usePage } from "../handler/hooks";
+import { usePage } from "../../contexts/pages/hooks";
 import { Pages } from "../handler/types";
-import { jurimetryService } from "../../services/api/jurimetry";
+import { useJurimetrySearch } from "../../contexts/jurimetry/JurimetryHooks";
 
 function Jurimetry() {
   const { t } = useTranslation();
   const { setCurrentPage } = usePage();
-  const [theme, setTheme] = useState("");
   const [terms, setTerms] = useState("");
-
-  const handleSearch = async () => {
-    console.log("Searching...", { theme, terms });
-    try {
-      const response = await jurimetryService.startJob("https://example.com");
-      console.log("API Response:", response);
-    } catch (error) {
-      console.error("Search failed:", error);
-    }
-  };
+  const [enableMaxDocuments, setEnableMaxDocuments] = useState(true);
+  const [maxDocuments, setMaxDocuments] = useState("10");
+  const { handleSearch, isLoading, documentCount } = useJurimetrySearch({
+    terms,
+    enableMaxDocuments,
+    maxDocuments,
+  });
 
   return (
     <Box sx={{ p: 3, maxWidth: 600, mx: "auto" }}>
@@ -36,14 +34,7 @@ function Jurimetry() {
           {t("jurimetry.title")}
         </Typography>
       </Box>
-      <Stack spacing={3}>
-        <TextField
-          label={t("jurimetry.searchTheme")}
-          variant="outlined"
-          fullWidth
-          value={theme}
-          onChange={(e) => setTheme(e.target.value)}
-        />
+      <Stack spacing={3} sx={{ mt: 3 }}>
         <TextField
           label={t("jurimetry.searchTerms")}
           variant="outlined"
@@ -51,14 +42,61 @@ function Jurimetry() {
           value={terms}
           onChange={(e) => setTerms(e.target.value)}
         />
+        <FormControlLabel
+          control={
+            <Switch
+              checked={enableMaxDocuments}
+              onChange={(e) => setEnableMaxDocuments(e.target.checked)}
+              color="primary"
+            />
+          }
+          label={
+            <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
+              <Typography variant="body2">
+                {t("jurimetry.enableMaxDocuments")}
+              </Typography>
+              {!enableMaxDocuments && (
+                <Tooltip title={t("jurimetry.unlimitedWarning")} arrow>
+                  <WarningAmberIcon fontSize="small" color="warning" />
+                </Tooltip>
+              )}
+            </Box>
+          }
+        />
+        {enableMaxDocuments && (
+          <TextField
+            label={t("jurimetry.maxDocuments")}
+            type="number"
+            variant="outlined"
+            fullWidth
+            value={maxDocuments}
+            onChange={(e) => setMaxDocuments(e.target.value)}
+            slotProps={{
+              htmlInput: { min: 1 },
+            }}
+          />
+        )}
         <Button
           variant="contained"
           color="primary"
           onClick={handleSearch}
           size="large"
+          disabled={isLoading}
         >
           {t("jurimetry.runSearch")}
         </Button>
+        {(isLoading || documentCount !== null) && (
+          <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+            {isLoading ? (
+              <CircularProgress size={20} />
+            ) : (
+              <CheckCircleIcon fontSize="small" color="success" />
+            )}
+            <Typography variant="body2">
+              {t("jurimetry.documentCountLabel")}: {documentCount ?? 0}
+            </Typography>
+          </Box>
+        )}
       </Stack>
     </Box>
   );

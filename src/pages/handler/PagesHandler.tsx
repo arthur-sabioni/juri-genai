@@ -1,7 +1,8 @@
-import { usePage } from "./hooks";
+import { usePage } from "../../contexts/pages/hooks";
 import { Pages } from "./types";
 import Welcome from "../views/Welcome";
 import Jurimetry from "../views/Jurimetry";
+import { JurimetryProvider } from "../../contexts/jurimetry/JurimetryContext";
 
 function PagesHandler() {
   const { currentPage } = usePage();
@@ -11,7 +12,11 @@ function PagesHandler() {
   }
 
   if (currentPage === Pages.Jurimetry) {
-    return <Jurimetry />;
+    return (
+      <JurimetryProvider>
+        <Jurimetry />
+      </JurimetryProvider>
+    );
   }
 
   return <Welcome />;

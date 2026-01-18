@@ -1,5 +1,5 @@
 import { createContext, useState, ReactNode } from "react";
-import { Pages } from "./types";
+import { Pages } from "../../pages/handler/types";
 
 type PageContextValue = {
   currentPage: Pages;
@@ -21,3 +21,4 @@ export function PagesProvider({ children }: PagesProviderProps) {
     </PageContext.Provider>
   );
 }
+

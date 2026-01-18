@@ -1,4 +1,5 @@
 import { JURIMETRY_API_BASE_URL } from "../../config";
+import { fetchAuthSession } from "aws-amplify/auth";
 
 export class ApiError extends Error {
   constructor(public status: number, message: string) {
@@ -7,19 +8,32 @@ export class ApiError extends Error {
   }
 }
 
+type AuthProvider = () => Promise<HeadersInit>;
+
 export class ApiClient {
   private baseUrl: string;
   private defaultHeaders: HeadersInit;
+  private authProvider?: AuthProvider;
 
-  constructor(baseUrl: string, defaultHeaders: HeadersInit = { "Content-Type": "application/json" }) {
+  constructor(
+    baseUrl: string,
+    options?: {
+      defaultHeaders?: HeadersInit;
+      authProvider?: AuthProvider;
+    }
+  ) {
     this.baseUrl = baseUrl;
-    this.defaultHeaders = defaultHeaders;
+    this.defaultHeaders = options?.defaultHeaders ?? { "Content-Type": "application/json" };
+    this.authProvider = options?.authProvider;
   }
 
   private async request<T>(endpoint: string, options: RequestInit = {}): Promise<T> {
     const url = `${this.baseUrl}${endpoint}`;
+    const authHeaders = this.authProvider ? await this.authProvider() : {};
+
     const headers = {
       ...this.defaultHeaders,
+      ...authHeaders,
       ...options.headers,
     };
 
@@ -68,5 +82,17 @@ export class ApiClient {
   }
 }
 
-// Define specific API instances
-export const jurimetryApi = new ApiClient(JURIMETRY_API_BASE_URL);
+export const jurimetryApi = new ApiClient(JURIMETRY_API_BASE_URL, {
+  authProvider: async () => {
+    const session = await fetchAuthSession();
+    const token = session.tokens?.idToken?.toString();
+
+    if (!token) {
+      throw new Error("Missing idToken");
+    }
+
+    return {
+      Authorization: `Bearer ${token}`,
+    };
+  },
+});
