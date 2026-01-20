@@ -5,11 +5,7 @@ import { jurimetryService } from "../../services/api/jurimetry";
 export function useJurimetry() {
   const context = useContext(JurimetryContext);
   if (!context) {
-    console.error("useJurimetry must be used within a JurimetryProvider");
-    return {
-      preProcessId: null,
-      setPreProcessId: () => {},
-    };
+    throw new Error("useJurimetry must be used within a JurimetryProvider");
   }
   return context;
 }
