@@ -5,25 +5,34 @@ import { jurimetryService } from "../../services/api/jurimetry";
 export function useJurimetry() {
   const context = useContext(JurimetryContext);
   if (!context) {
-    throw new Error("useJurimetry must be used within a JurimetryProvider");
+    console.error("useJurimetry must be used within a JurimetryProvider");
+    return {
+      preProcessId: null,
+      setPreProcessId: () => {},
+    };
   }
   return context;
 }
 
 type UseJurimetrySearchParams = {
-  terms: string;
-  enableMaxDocuments: boolean;
-  maxDocuments: string;
+  // Optional overrides, otherwise uses context
+  terms?: string;
+  enableMaxDocuments?: boolean;
+  maxDocuments?: string;
 };
 
-export function useJurimetrySearch({
-  terms,
-  enableMaxDocuments,
-  maxDocuments,
-}: UseJurimetrySearchParams) {
-  const { setPreProcessId } = useJurimetry();
+export function useJurimetrySearch(params?: UseJurimetrySearchParams) {
+  const context = useJurimetry();
+  
+  // Use params if provided, otherwise context
+  const terms = params?.terms ?? context.terms;
+  const enableMaxDocuments = params?.enableMaxDocuments ?? context.enableMaxDocuments;
+  const maxDocuments = params?.maxDocuments ?? context.maxDocuments;
+
   const [isLoading, setIsLoading] = useState(false);
-  const [documentCount, setDocumentCount] = useState<number | null>(null);
+  
+  // We use context state for results
+  const { numFound, setNumFound, results, setResults } = context;
 
   const handleSearch = useCallback(async () => {
     const parsedMaxDocuments =
@@ -38,46 +47,30 @@ export function useJurimetrySearch({
 
     try {
       setIsLoading(true);
-      setDocumentCount(null);
+      setNumFound(null);
+      setResults([]);
 
-      const response = await jurimetryService.startPreProcess(terms, maxDocs);
-      if (response.preProcessId && typeof response.preProcessId === "string") {
-        setPreProcessId(response.preProcessId);
-
-        const targetStatuses = new Set(["FETCHED", "READY"]);
-        let done = false;
-
-        while (!done) {
-          const statusResponse = await jurimetryService.getPreProcessStatus(response.preProcessId);
-          const status = statusResponse.status ?? "";
-
-          console.log("Pre-process status:", statusResponse);
-
-          if (typeof statusResponse.documentCount === "number") {
-            setDocumentCount(statusResponse.documentCount);
-            console.log("Document count:", statusResponse.documentCount);
-          }
-
-          if (targetStatuses.has(status)) {
-            done = true;
-            setIsLoading(false);
-            break;
-          }
-
-          await new Promise((resolve) => setTimeout(resolve, 2000));
-        }
-      } else {
-        setIsLoading(false);
+      const response = await jurimetryService.search(terms, maxDocs);
+      
+      if (typeof response.numFound === "number") {
+        setNumFound(response.numFound);
       }
+
+      if (Array.isArray(response.results)) {
+        setResults(response.results);
+      }
+
+      setIsLoading(false);
     } catch (error) {
       console.error("Search failed:", error);
       setIsLoading(false);
     }
-  }, [enableMaxDocuments, maxDocuments, terms, setPreProcessId]);
+  }, [enableMaxDocuments, maxDocuments, terms, setNumFound, setResults]);
 
   return {
     handleSearch,
     isLoading,
-    documentCount,
+    numFound,
+    results,
   };
 }

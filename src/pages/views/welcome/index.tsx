@@ -4,9 +4,9 @@ import {
   Button
 } from "@mui/material";
 import { useAuthenticator } from "@aws-amplify/ui-react";
-import { useTranslation } from "../../language";
-import { usePage } from "../../contexts/pages/hooks";
-import { Pages } from "../handler/types";
+import { useTranslation } from "../../../language";
+import { usePage } from "../../../contexts/pages/hooks";
+import { Pages } from "../../handler/types";
 
 function Welcome() {
   const { user } = useAuthenticator((context) => [context.user]);

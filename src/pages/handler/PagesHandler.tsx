@@ -1,7 +1,7 @@
 import { usePage } from "../../contexts/pages/hooks";
 import { Pages } from "./types";
-import Welcome from "../views/Welcome";
-import Jurimetry from "../views/Jurimetry";
+import Welcome from "../views/welcome";
+import Jurimetry from "../views/jurimetry";
 import { JurimetryProvider } from "../../contexts/jurimetry/JurimetryContext";
 
 function PagesHandler() {
