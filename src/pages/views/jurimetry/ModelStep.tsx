@@ -1,4 +1,4 @@
-import { Box, Typography, Stack, MenuItem, Select, FormControl, InputLabel, Button, Paper, Alert } from "@mui/material";
+import { Box, Typography, Stack, MenuItem, Select, FormControl, InputLabel, Button, Paper, Alert, SelectChangeEvent } from "@mui/material";
 import CalculateIcon from '@mui/icons-material/Calculate';
 import { useTranslation } from "../../../language";
 import { useJurimetry } from "../../../contexts/jurimetry/JurimetryHooks";
@@ -21,7 +21,7 @@ export function ModelStep() {
     maxDocuments
   } = useJurimetry();
 
-  const handleModelChange = (event: any) => {
+  const handleModelChange = (event: SelectChangeEvent) => {
     const modelId = event.target.value;
     const model = DUMMY_MODELS.find(m => m.id === modelId) || null;
     setSelectedModel(model);

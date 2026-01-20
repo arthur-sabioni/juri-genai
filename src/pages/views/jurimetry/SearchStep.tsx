@@ -62,7 +62,7 @@ export function SearchStep() {
           color="primary"
           onClick={handleSearch}
           size="large"
-          disabled={isLoading}
+          disabled={isLoading || !terms.trim()}
         >
           {t("jurimetry.runSearch")}
         </Button>

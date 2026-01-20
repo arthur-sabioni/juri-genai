@@ -28,7 +28,7 @@ export function CustomizationStep() {
     }
   };
 
-  const updateColumn = (id: string, field: keyof CustomizationColumn, value: any) => {
+  const updateColumn = (id: string, field: keyof CustomizationColumn, value: string | boolean) => {
     setColumns(columns.map(col => {
       if (col.id === id) {
         return { ...col, [field]: value };
@@ -53,11 +53,10 @@ export function CustomizationStep() {
 
         <Box sx={{ flex: "0 1 auto", overflowY: "auto", minHeight: 0, pr: 1 }}>
           <Stack spacing={3}>
-            {columns.map((column, index) => (
+            {columns.map((column) => (
               <SheetColumnInput
                 key={column.id}
                 column={column}
-                index={index}
                 canRemove={columns.length > 1}
                 onRemove={handleRemoveColumn}
                 onUpdate={updateColumn}

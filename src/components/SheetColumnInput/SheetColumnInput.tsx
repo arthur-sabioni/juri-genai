@@ -1,4 +1,4 @@
-import { Box, TextField, Typography, Stack, FormControlLabel, Switch, IconButton, Paper, Collapse, Chip } from "@mui/material";
+import { Box, TextField, Typography, Stack, FormControlLabel, Switch, IconButton, Paper, Collapse } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
@@ -8,13 +8,12 @@ import { useState } from "react";
 
 interface SheetColumnInputProps {
   column: CustomizationColumn;
-  index: number;
   canRemove: boolean;
   onRemove: (id: string) => void;
-  onUpdate: (id: string, field: keyof CustomizationColumn, value: any) => void;
+  onUpdate: (id: string, field: keyof CustomizationColumn, value: string | boolean) => void;
 }
 
-export function SheetColumnInput({ column, index, canRemove, onRemove, onUpdate }: SheetColumnInputProps) {
+export function SheetColumnInput({ column, canRemove, onRemove, onUpdate }: SheetColumnInputProps) {
   const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(true);
 
