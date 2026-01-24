@@ -1,0 +1,434 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "Jurimetry Backend API - dev",
+    "description" : "API for Jurimetry Processing",
+    "version" : "2026-01-24T20:57:19Z"
+  },
+  "servers" : [ {
+    "url" : "https://zun3wqp24m.execute-api.us-east-1.amazonaws.com/{basePath}",
+    "variables" : {
+      "basePath" : {
+        "default" : "dev"
+      }
+    }
+  } ],
+  "paths" : {
+    "/pre-process/status" : {
+      "options" : {
+        "responses" : {
+          "204" : {
+            "description" : "204 response",
+            "headers" : {
+              "Access-Control-Allow-Origin" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              },
+              "Access-Control-Allow-Methods" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              },
+              "Access-Control-Allow-Headers" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "content" : { }
+          }
+        }
+      }
+    },
+    "/pre-process" : {
+      "post" : {
+        "operationId" : "startPreProcess",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/StartPreProcessModel"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "200 response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/StartPreProcessResponseModel"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "JurimetryProcessingStackdevApiJurimetryAuthorizer6060BAD0" : [ ]
+        } ]
+      },
+      "options" : {
+        "responses" : {
+          "204" : {
+            "description" : "204 response",
+            "headers" : {
+              "Access-Control-Allow-Origin" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              },
+              "Access-Control-Allow-Methods" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              },
+              "Access-Control-Allow-Headers" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "content" : { }
+          }
+        }
+      }
+    },
+    "/calculate-price" : {
+      "get" : {
+        "operationId" : "calculatePrice",
+        "parameters" : [ {
+          "name" : "preProcessId",
+          "in" : "query",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "200 response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/CalculatePriceResponseModel"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "JurimetryProcessingStackdevApiJurimetryAuthorizer6060BAD0" : [ ]
+        } ]
+      },
+      "options" : {
+        "responses" : {
+          "204" : {
+            "description" : "204 response",
+            "headers" : {
+              "Access-Control-Allow-Origin" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              },
+              "Access-Control-Allow-Methods" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              },
+              "Access-Control-Allow-Headers" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "content" : { }
+          }
+        }
+      }
+    },
+    "/search" : {
+      "get" : {
+        "operationId" : "search",
+        "parameters" : [ {
+          "name" : "searchTerm",
+          "in" : "query",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "200 response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SearchResponseModel"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "JurimetryProcessingStackdevApiJurimetryAuthorizer6060BAD0" : [ ]
+        } ]
+      },
+      "options" : {
+        "responses" : {
+          "204" : {
+            "description" : "204 response",
+            "headers" : {
+              "Access-Control-Allow-Origin" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              },
+              "Access-Control-Allow-Methods" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              },
+              "Access-Control-Allow-Headers" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "content" : { }
+          }
+        }
+      }
+    },
+    "/pre-process/status/{preProcessId}" : {
+      "get" : {
+        "operationId" : "getPreProcessStatus",
+        "parameters" : [ {
+          "name" : "preProcessId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "200 response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/GetPreProcessStatusResponseModel"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "JurimetryProcessingStackdevApiJurimetryAuthorizer6060BAD0" : [ ]
+        } ]
+      },
+      "options" : {
+        "parameters" : [ {
+          "name" : "preProcessId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "204 response",
+            "headers" : {
+              "Access-Control-Allow-Origin" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              },
+              "Access-Control-Allow-Methods" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              },
+              "Access-Control-Allow-Headers" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "content" : { }
+          }
+        }
+      }
+    },
+    "/" : {
+      "options" : {
+        "responses" : {
+          "204" : {
+            "description" : "204 response",
+            "headers" : {
+              "Access-Control-Allow-Origin" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              },
+              "Access-Control-Allow-Methods" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              },
+              "Access-Control-Allow-Headers" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "content" : { }
+          }
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "StartPreProcessResponseModel" : {
+        "type" : "object",
+        "properties" : {
+          "preProcessId" : {
+            "type" : "string",
+            "description" : "The unique identifier for the started pre-process job.",
+            "default" : "12345-abcde-67890"
+          }
+        }
+      },
+      "SearchResponseModel" : {
+        "type" : "object",
+        "properties" : {
+          "numFound" : {
+            "type" : "integer",
+            "description" : "Total number of documents found.",
+            "default" : 1
+          },
+          "results" : {
+            "type" : "array",
+            "items" : {
+              "type" : "object",
+              "properties" : {
+                "score" : {
+                  "type" : "number",
+                  "default" : 0.95
+                },
+                "title" : {
+                  "type" : "string",
+                  "default" : "Sample Legal Document Title"
+                },
+                "url" : {
+                  "type" : "string",
+                  "default" : "https://example.com/document/123"
+                }
+              }
+            }
+          }
+        }
+      },
+      "CalculatePriceResponseModel" : {
+        "type" : "object",
+        "properties" : {
+          "totalPdfSize" : {
+            "type" : "integer",
+            "description" : "Total size of processed PDFs in bytes.",
+            "default" : 1048576
+          },
+          "modelsCount" : {
+            "type" : "integer",
+            "description" : "Number of AI models available for processing.",
+            "default" : 3
+          },
+          "prices" : {
+            "type" : "array",
+            "items" : {
+              "type" : "object",
+              "properties" : {
+                "modelName" : {
+                  "type" : "string",
+                  "default" : "GPT-4"
+                },
+                "modelId" : {
+                  "type" : "string",
+                  "default" : "gpt-4"
+                },
+                "description" : {
+                  "type" : "string",
+                  "description" : "Description of the model.",
+                  "default" : "GPT-4 is a large multimodal model..."
+                },
+                "estimatedPriceUsd" : {
+                  "type" : "number",
+                  "default" : 0.05
+                }
+              }
+            }
+          },
+          "preProcessId" : {
+            "type" : "string",
+            "default" : "12345-abcde-67890"
+          }
+        }
+      },
+      "StartPreProcessModel" : {
+        "required" : [ "searchTerm" ],
+        "type" : "object",
+        "properties" : {
+          "searchTerm" : {
+            "type" : "string",
+            "description" : "The term to search for in the legal database.",
+            "default" : "danos morais"
+          },
+          "maxDocuments" : {
+            "type" : "integer",
+            "description" : "Maximum number of documents to retrieve.",
+            "default" : 10
+          }
+        }
+      },
+      "GetPreProcessStatusResponseModel" : {
+        "type" : "object",
+        "properties" : {
+          "documentCount" : {
+            "type" : "integer",
+            "description" : "Number of documents processed so far.",
+            "default" : 150
+          },
+          "createdAt" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "searchTerm" : {
+            "type" : "string",
+            "default" : "danos morais"
+          },
+          "preProcessId" : {
+            "type" : "string",
+            "default" : "12345-abcde-67890"
+          },
+          "status" : {
+            "type" : "string",
+            "description" : "Current status of the pre-process job (e.g., RUNNING, SUCCEEDED, FAILED).",
+            "default" : "SUCCEEDED"
+          }
+        }
+      }
+    },
+    "securitySchemes" : {
+      "JurimetryProcessingStackdevApiJurimetryAuthorizer6060BAD0" : {
+        "type" : "apiKey",
+        "name" : "Authorization",
+        "in" : "header",
+        "x-amazon-apigateway-authtype" : "cognito_user_pools"
+      }
+    }
+  },
+  "x-amazon-apigateway-security-policy" : "TLS_1_0"
+}

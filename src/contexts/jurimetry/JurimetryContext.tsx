@@ -1,5 +1,7 @@
 import { createContext, useState, ReactNode, useEffect } from "react";
-import { SearchResultItem } from "../../services/api/jurimetry";
+import { SearchResponseModel } from "../../client";
+
+export type SearchResultItem = NonNullable<SearchResponseModel['results']>[number];
 
 export type CustomizationColumn = {
   id: string;

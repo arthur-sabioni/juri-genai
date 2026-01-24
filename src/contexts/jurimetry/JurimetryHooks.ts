@@ -1,6 +1,6 @@
 import { useContext, useState, useCallback } from "react";
 import { JurimetryContext } from "./JurimetryContext";
-import { jurimetryService } from "../../services/api/jurimetry";
+import { DefaultService } from "../../client";
 
 export function useJurimetry() {
   const context = useContext(JurimetryContext);
@@ -46,7 +46,7 @@ export function useJurimetrySearch(params?: UseJurimetrySearchParams) {
       setNumFound(null);
       setResults([]);
 
-      const response = await jurimetryService.search(terms, maxDocs);
+      const response = await DefaultService.search(terms);
       
       if (typeof response.numFound === "number") {
         setNumFound(response.numFound);
