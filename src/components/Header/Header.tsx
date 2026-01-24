@@ -1,9 +1,9 @@
 import { AppBar, Toolbar, Typography, Button, Box } from "@mui/material";
 import { useAuthenticator } from "@aws-amplify/ui-react";
-import { useTranslation } from "../language";
-import { usePage } from "../contexts/pages/hooks";
-import { Pages } from "../pages/handler/types";
-import juriLogo from "../assets/juri.png";
+import { useTranslation } from "../../language";
+import { usePage } from "../../pages/handler/context/usePage";
+import { Pages } from "../../pages/handler/types";
+import juriLogo from "../../assets/juri.png";
 
 type HeaderProps = {
   title: string;

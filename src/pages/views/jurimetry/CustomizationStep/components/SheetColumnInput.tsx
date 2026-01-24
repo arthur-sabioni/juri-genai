@@ -2,8 +2,8 @@ import { Box, TextField, Typography, Stack, FormControlLabel, Switch, IconButton
 import DeleteIcon from "@mui/icons-material/Delete";
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-import { useTranslation } from "../../language";
-import { CustomizationColumn } from "../../contexts/jurimetry/JurimetryContext";
+import { useTranslation } from "../../../../../language";
+import { CustomizationColumn } from "../../context/JurimetryContext";
 import { useState } from "react";
 
 interface SheetColumnInputProps {

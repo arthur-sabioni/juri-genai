@@ -8,7 +8,7 @@ import PagesHandler from "./pages/handler/PagesHandler";
 import Header from "./components/Header";
 import { appTheme } from './theme';
 import { LanguageProvider } from "./language";
-import { PagesProvider } from "./contexts/pages/PagesProvider";
+import { PagesProvider } from "./pages/handler/context/PagesContext";
 
 function App() {
   return (    

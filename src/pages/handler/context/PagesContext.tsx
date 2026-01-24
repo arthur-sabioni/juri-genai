@@ -1,5 +1,5 @@
 import { createContext, useState, ReactNode } from "react";
-import { Pages } from "../../pages/handler/types";
+import { Pages } from "../types";
 
 type PageContextValue = {
   currentPage: Pages;

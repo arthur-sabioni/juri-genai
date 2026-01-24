@@ -1,8 +1,8 @@
-import { usePage } from "../../contexts/pages/hooks";
+import { usePage } from "./context/usePage";
 import { Pages } from "./types";
 import Welcome from "../views/welcome";
 import Jurimetry from "../views/jurimetry";
-import { JurimetryProvider } from "../../contexts/jurimetry/JurimetryContext";
+import { JurimetryProvider } from "../views/jurimetry/context/JurimetryContext";
 
 function PagesHandler() {
   const { currentPage } = usePage();

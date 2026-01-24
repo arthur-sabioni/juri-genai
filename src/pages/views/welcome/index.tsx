@@ -5,7 +5,7 @@ import {
 } from "@mui/material";
 import { useAuthenticator } from "@aws-amplify/ui-react";
 import { useTranslation } from "../../../language";
-import { usePage } from "../../../contexts/pages/hooks";
+import { usePage } from "../../handler/context/usePage";
 import { Pages } from "../../handler/types";
 
 function Welcome() {

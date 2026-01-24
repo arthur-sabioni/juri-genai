@@ -35,6 +35,14 @@ export const translations: Record<Language, Record<string, string>> = {
     "jurimetry.modelInfo": "Model Information",
     "jurimetry.price": "Price",
     "jurimetry.duration": "Estimated Duration",
+    "jurimetry.loading.starting": "Starting...",
+    "jurimetry.loading.processing": "Processing documents...",
+    "jurimetry.loading.calculating": "Calculating prices...",
+    "jurimetry.error.preprocessFailed": "Pre-processing failed.",
+    "jurimetry.error.statusCheckFailed": "Error checking status.",
+    "jurimetry.error.startFailed": "Failed to start process.",
+    "jurimetry.error.noPrices": "No prices returned",
+    "jurimetry.error.noPreProcessId": "No pre-process ID returned"
   },
   "pt-br": {
     "header.signOut": "Sair",
@@ -67,9 +75,17 @@ export const translations: Record<Language, Record<string, string>> = {
     "jurimetry.untitledColumn": "Coluna Sem Título",
     "jurimetry.selectModel": "Selecionar Modelo",
     "jurimetry.calculatePrice": "Calcular Preço",
-    "jurimetry.modelImpactWarning": "O modelo selecionado impactará diretamente a duração da etapa de processamento, bem como o preço final.",
+    "jurimetry.modelImpactWarning": "O preço foi calculado com base no tamanho e quantidade dos documentos, bem como na complexidade das colunas personalizadas.",
     "jurimetry.modelInfo": "Informações do Modelo",
     "jurimetry.price": "Preço",
     "jurimetry.duration": "Duração Estimada",
+    "jurimetry.loading.starting": "Iniciando...",
+    "jurimetry.loading.processing": "Processando documentos...",
+    "jurimetry.loading.calculating": "Calculando preços...",
+    "jurimetry.error.preprocessFailed": "O pré-processamento falhou.",
+    "jurimetry.error.statusCheckFailed": "Erro ao verificar status.",
+    "jurimetry.error.startFailed": "Falha ao iniciar processo.",
+    "jurimetry.error.noPrices": "Nenhum preço retornado",
+    "jurimetry.error.noPreProcessId": "Nenhum ID de pré-processamento retornado"
   },
 };

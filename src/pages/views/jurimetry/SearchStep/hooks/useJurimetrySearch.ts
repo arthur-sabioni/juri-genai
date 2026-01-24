@@ -1,14 +1,6 @@
-import { useContext, useState, useCallback } from "react";
-import { JurimetryContext } from "./JurimetryContext";
-import { DefaultService } from "../../client";
-
-export function useJurimetry() {
-  const context = useContext(JurimetryContext);
-  if (!context) {
-    throw new Error("useJurimetry must be used within a JurimetryProvider");
-  }
-  return context;
-}
+import { useState, useCallback } from "react";
+import { useJurimetry } from "../../context/JurimetryHooks";
+import { DefaultService } from "../../../../../client";
 
 type UseJurimetrySearchParams = {
   // Optional overrides, otherwise uses context
@@ -28,7 +20,7 @@ export function useJurimetrySearch(params?: UseJurimetrySearchParams) {
   const [isLoading, setIsLoading] = useState(false);
   
   // We use context state for results
-  const { numFound, setNumFound, results, setResults } = context;
+  const { setNumFound, results, setResults, numFound } = context;
 
   const handleSearch = useCallback(async () => {
     const parsedMaxDocuments =

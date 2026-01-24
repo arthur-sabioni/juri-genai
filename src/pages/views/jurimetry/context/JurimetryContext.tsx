@@ -1,5 +1,7 @@
+"use client";
+
 import { createContext, useState, ReactNode, useEffect } from "react";
-import { SearchResponseModel } from "../../client";
+import { SearchResponseModel } from "../../../../client";
 
 export type SearchResultItem = NonNullable<SearchResponseModel['results']>[number];
 
@@ -13,8 +15,8 @@ export type CustomizationColumn = {
 export type LLMModel = {
   id: string;
   name: string;
-  multiplier: number;
   description: string;
+  price: number;
 };
 
 type JurimetryContextValue = {
@@ -94,4 +96,3 @@ export function JurimetryProvider({ children }: JurimetryProviderProps) {
     </JurimetryContext.Provider>
   );
 }
-

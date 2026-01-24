@@ -2,8 +2,8 @@ import { Box, Button, Typography, IconButton, Stepper, Step, StepLabel, Tooltip 
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useState } from "react";
 import { useTranslation } from "../../../language";
-import { usePage } from "../../../contexts/pages/hooks";
-import { useJurimetry } from "../../../contexts/jurimetry/JurimetryHooks";
+import { usePage } from "../../handler/context/usePage";
+import { useJurimetry } from "./context/JurimetryHooks";
 import { Pages } from "../../handler/types";
 import { SearchStep } from "./SearchStep";
 import { CustomizationStep } from "./CustomizationStep";
